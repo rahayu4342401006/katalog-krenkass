@@ -66,3 +66,55 @@ export async function keluar() {
 
 export const logout = keluar;
 
+/**
+ * Server Action untuk mengganti password admin yang sedang login.
+ */
+export async function gantiPassword(prevState, formData) {
+  let data = formData;
+  if (!data && prevState instanceof FormData) {
+    data = prevState;
+  } else if (!data && typeof prevState?.get === "function") {
+    data = prevState;
+  }
+
+  const passwordBaru = data?.get ? data.get("password_baru") : data?.password_baru;
+  const konfirmasiPassword = data?.get ? data.get("konfirmasi_password") : data?.konfirmasi_password;
+
+  if (!passwordBaru || !konfirmasiPassword) {
+    return { error: "Semua kolom password wajib diisi." };
+  }
+
+  if (String(passwordBaru).length < 8) {
+    return { error: "Password baru minimal 8 karakter." };
+  }
+
+  if (passwordBaru !== konfirmasiPassword) {
+    return { error: "Password baru dan konfirmasi password tidak sama." };
+  }
+
+  try {
+    const supabase = await createSessionClient();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return { error: "Sesi admin berakhir atau belum masuk. Silakan masuk terlebih dahulu." };
+    }
+
+    const { error } = await supabase.auth.updateUser({
+      password: String(passwordBaru),
+    });
+
+    if (error) {
+      return { error: error.message || "Gagal mengganti password." };
+    }
+
+    return { success: true, message: "Password berhasil diganti." };
+  } catch (err) {
+    return { error: err.message || "Terjadi kesalahan server saat mengganti password." };
+  }
+}
+
+export const updatePassword = gantiPassword;
