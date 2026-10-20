@@ -20,10 +20,15 @@ Normalisasi nilai `SUPABASE_URL` pada koneksi server dan `.env.local` agar mengh
 ## US-02 Detail produk
 
 **Prompt:**
+Baca docs/user-stories.md bagian US-02.
+
+Ubah app/produk/[id]/page.jsx supaya mengambil satu produk dari tabel "produk" di Supabase berdasarkan id di URL, di sisi server, memakai koneksi Supabase yang sudah dibuat di lib/supabase. Kalau produk tidak ditemukan, panggil notFound(). Jangan ubah tampilannya. Hapus CatatanBelumAktif dari halaman ini, tapi biarkan tombol WhatsApp.
 
 **Hasil:**
+Halaman detail produk `app/produk/[id]/page.jsx` diubah untuk mengambil data produk berdasarkan `id` dari tabel `produk` di Supabase di sisi server. Jika produk tidak ditemukan atau terjadi kesalahan id, fungsi `notFound()` dipanggil. Komponen `CatatanBelumAktif` dan referensi data contoh dihapus, sedangkan tampilan dan tombol WhatsApp tetap dipertahankan.
 
 **Perbaikan:**
+-
 
 ## US-03 Pesan via WhatsApp
 
