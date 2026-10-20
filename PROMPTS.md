@@ -85,3 +85,16 @@ Dibuat file `proxy.js` di root proyek yang memproteksi semua rute `/admin` kecua
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
+
+---
+
+## US-07 List Produk (Bonus)
+
+**Prompt:**
+Implementasikan US-07 List Produk. Baca AGENTS.md dan docs/user-stories.md bagian US-07. Ubah halaman /admin supaya daftar produk diambil dari database Supabase, bukan data contoh. Pertahankan struktur dan gaya proyek.
+
+**Hasil:**
+Halaman `app/admin/page.jsx` diubah menjadi Server Component async yang mengambil seluruh produk dari tabel `produk` di Supabase menggunakan `createClient` (SECRET_KEY). Ditambahkan penanganan error dan state kosong. Referensi `produkContoh` dari `lib/data-contoh.js` dihapus. Komponen `TabelProduk` tetap dipakai tanpa perubahan.
+
+**Perbaikan:**
+-
