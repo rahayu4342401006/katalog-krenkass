@@ -46,10 +46,15 @@ Komponen `components/TombolWhatsApp.jsx` diubah menjadi elemen `<a>` yang membuk
 ## US-04 Login admin
 
 **Prompt:**
+Baca AGENTS.md bagian aturan keamanan dan docs/user-stories.md bagian US-04.
+
+Buat login admin memakai Supabase Auth (email dan password) dengan @supabase/ssr dan cookie, memakai SUPABASE_URL dan SUPABASE_PUBLISHABLE_KEY. Login diproses dengan Server Action di app/admin/actions.js dan disambungkan ke form di app/admin/login/page.jsx. Login berhasil diarahkan ke /admin; login gagal menampilkan pesan error yang jelas di halaman login. Buat juga tombol "Keluar" di components/NavAdmin.jsx berfungsi: mengakhiri sesi lalu kembali ke /admin/login. Jangan ubah tampilan. Hapus CatatanBelumAktif dari halaman login.
 
 **Hasil:**
+Koneksi sesi admin dibuat di `lib/supabase/session.js` menggunakan `@supabase/ssr` dan cookies dengan `SUPABASE_URL` serta `SUPABASE_PUBLISHABLE_KEY`. Server Action `login` dan `keluar` dibuat di `app/admin/actions.js`. Form di `app/admin/login/page.jsx` disambungkan ke Server Action `login`, menampilkan pesan error saat login gagal, dan mengarahkan ke `/admin` saat berhasil. Tombol "Keluar" di `components/NavAdmin.jsx` difungsikan untuk mengakhiri sesi dan kembali ke `/admin/login`. Komponen `CatatanBelumAktif` dihapus dari halaman login tanpa mengubah tampilan form.
 
 **Perbaikan:**
+-
 
 ## US-05 Ganti password
 
