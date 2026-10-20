@@ -33,10 +33,15 @@ Halaman detail produk `app/produk/[id]/page.jsx` diubah untuk mengambil data pro
 ## US-03 Pesan via WhatsApp
 
 **Prompt:**
+Baca docs/rancangan-teknis.md bagian "Pesan WhatsApp (US-03)".
+
+Ubah components/TombolWhatsApp.jsx menjadi tautan yang membuka https://wa.me/ ke nomor di lib/toko.js, dengan pesan otomatis berisi nama dan harga produk dalam format rupiah. Pesan di-encode dengan encodeURIComponent dan dibuka di tab baru. Pertahankan tampilan tombolnya. Hapus CatatanBelumAktif yang menyebut US-03 di halaman detail produk.
 
 **Hasil:**
+Komponen `components/TombolWhatsApp.jsx` diubah menjadi elemen `<a>` yang membuka tautan WhatsApp `https://wa.me/<nomor>?text=<pesan>` ke nomor di `lib/toko.js` dengan pesan terisi nama dan harga produk dalam format rupiah yang di-encode dengan `encodeURIComponent`. Tombol membuka tab baru (`target="_blank"`, `rel="noopener noreferrer"`) dan mempertahankan styling bawaan. `CatatanBelumAktif` yang menyebut US-03 di halaman detail produk telah dihapus.
 
 **Perbaikan:**
+-
 
 ## US-04 Login admin
 
