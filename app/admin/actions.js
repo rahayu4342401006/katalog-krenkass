@@ -4,6 +4,24 @@ import { redirect } from "next/navigation";
 import { createSessionClient } from "@/lib/supabase";
 
 /**
+ * Memeriksa apakah admin sedang login di server.
+ * Digunakan untuk mengamankan Server Action yang mengubah data.
+ */
+export async function periksaLogin() {
+  const supabase = await createSessionClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    return null;
+  }
+
+  return user;
+}
+
+/**
  * Server Action untuk memproses login admin menggunakan Supabase Auth (email dan password).
  */
 export async function login(prevState, formData) {
@@ -93,16 +111,12 @@ export async function gantiPassword(prevState, formData) {
   }
 
   try {
-    const supabase = await createSessionClient();
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser();
-
-    if (authError || !user) {
+    const user = await periksaLogin();
+    if (!user) {
       return { error: "Sesi admin berakhir atau belum masuk. Silakan masuk terlebih dahulu." };
     }
 
+    const supabase = await createSessionClient();
     const { error } = await supabase.auth.updateUser({
       password: String(passwordBaru),
     });
